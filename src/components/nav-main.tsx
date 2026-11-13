@@ -1,22 +1,24 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { CirclePlusIcon, MailIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import { CirclePlusIcon, MailIcon } from "lucide-react";
+import { useNavigate } from "react-router";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: React.ReactNode
-  }[]
+    title: string;
+    url: string;
+    icon?: React.ReactNode;
+  }[];
 }) {
+  const navigate = useNavigate();
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -26,8 +28,7 @@ export function NavMain({
               tooltip="Quick Create"
               className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
             >
-              <CirclePlusIcon
-              />
+              <CirclePlusIcon />
               <span>Quick Create</span>
             </SidebarMenuButton>
             <Button
@@ -35,8 +36,7 @@ export function NavMain({
               className="size-8 group-data-[collapsible=icon]:opacity-0"
               variant="outline"
             >
-              <MailIcon
-              />
+              <MailIcon />
               <span className="sr-only">Inbox</span>
             </Button>
           </SidebarMenuItem>
@@ -44,7 +44,10 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuButton
+                tooltip={item.title}
+                onClick={() => navigate(item.url)}
+              >
                 {item.icon}
                 <span>{item.title}</span>
               </SidebarMenuButton>
@@ -53,5 +56,5 @@ export function NavMain({
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }
